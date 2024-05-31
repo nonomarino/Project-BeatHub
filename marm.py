@@ -1,5 +1,5 @@
-from PyQt5.QtWidgets import QApplication, QWidget, QVBoxLayout, QLabel, QScrollArea, QVBoxLayout, QLabel
-from PyQt5.QtGui import QPixmap
+from PyQt5.QtWidgets import QApplication, QWidget, QVBoxLayout, QLabel, QScrollArea, QVBoxLayout, QPushButton, QHBoxLayout
+from PyQt5.QtGui import QPixmap, QCursor
 from PyQt5.QtCore import Qt, QUrl
 from PyQt5.QtNetwork import QNetworkAccessManager, QNetworkRequest
 
@@ -44,11 +44,12 @@ class BeatHubApp(QWidget):
         img_data = reply.readAll()
         pixmap = QPixmap()
         pixmap.loadFromData(img_data)
-        
+
         image_label = QLabel()
         image_label.setPixmap(pixmap)
         image_label.setAlignment(Qt.AlignCenter)
         image_label.mousePressEvent = lambda event, u=url: self.show_event_details(u)
+        image_label.setCursor(QCursor(Qt.PointingHandCursor))
         self.scroll_layout.addWidget(image_label)
         self.scroll_layout.addSpacing(20)
 

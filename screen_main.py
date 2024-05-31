@@ -1,9 +1,9 @@
-from PyQt5.QtWidgets import (QVBoxLayout, QHBoxLayout, QLabel, QPushButton, QApplication)
+from PyQt5.QtWidgets import (QVBoxLayout, QLabel, QPushButton, QApplication, QMessageBox, QWidget)
 from PyQt5.QtCore import Qt
 from PyQt5.QtGui import QFont
-from backroundWin import BaseWindow
+from backroundWin import BaseWindow  # Import the BaseWindow class from the second code
 
-class ScreenMain(BaseWindow):
+class ScreenMain(BaseWindow):  # Use BaseWindow as the base class
     def __init__(self):
         super().__init__()
         self.setStyleSheet("background-color: #363636;")
@@ -13,20 +13,40 @@ class ScreenMain(BaseWindow):
         layout = QVBoxLayout()
         layout.setAlignment(Qt.AlignCenter)
 
-        subtitle = QLabel("Ready for your next Therapy?\nBook your Appointment here!")
+        subtitle = QLabel("Welcome, (Username)")
         subtitle.setAlignment(Qt.AlignCenter)
         subtitle.setFont(QFont('Arial', 18))
         subtitle.setStyleSheet("color: white;")
         layout.addWidget(subtitle, alignment=Qt.AlignTop | Qt.AlignCenter)
 
-        pick_therapist_btn = QPushButton("Pick a Therapist")
-        pick_therapist_btn.setStyleSheet("""
+        pick_Reservations_btn = QPushButton("Reservations")
+        pick_Reservations_btn.setStyleSheet("""
             QPushButton {
                 background-color: #5C6BC0;
                 color: white;
                 font-size: 18px;
                 padding: 20px;
                 border-radius: 20px;
+            }
+            QPushButton:hover {
+                background-color: #7986CB;
+            }
+            QPushButton:pressed {
+                background-color: #3F51B5;
+            }
+        """)
+       
+        
+
+        your_Rate_btn = QPushButton("Rate")
+        your_Rate_btn.setStyleSheet("""
+            QPushButton {
+                background-color: #5C6BC0;
+                color: white;
+                font-size: 18px;
+                padding: 20px;
+                border-radius: 20px;
+                
             }
             QPushButton:hover {
                 background-color: #7986CB;
@@ -36,8 +56,28 @@ class ScreenMain(BaseWindow):
             }
         """)
 
-        your_progress_btn = QPushButton("Your Progress")
-        your_progress_btn.setStyleSheet("""
+        
+
+        discover_events_btn = QPushButton("Discover Upcoming Events")
+        discover_events_btn.setStyleSheet("""
+            QPushButton {
+                background-color: #5C6BC0;
+                color: white;
+                font-size: 18px;
+                padding: 20px;
+                border-radius: 20px;                          
+            }
+            QPushButton:hover {
+                background-color: #7986CB;
+            }
+            QPushButton:pressed {
+                background-color: #3F51B5;
+            }
+        """)
+        discover_events_btn.clicked.connect(self.show_upcoming_events)
+        
+        technical_support_btn = QPushButton("Technical Support")
+        technical_support_btn.setStyleSheet("""
             QPushButton {
                 background-color: #5C6BC0;
                 color: white;
@@ -52,31 +92,25 @@ class ScreenMain(BaseWindow):
                 background-color: #3F51B5;
             }
         """)
+        technical_support_btn.clicked.connect(self.show_technical_support)
 
         layout.addStretch()
         layout.addWidget(subtitle)
         layout.addStretch()
-        layout.addWidget(pick_therapist_btn)
-        layout.addWidget(your_progress_btn)
+        layout.addWidget(pick_Reservations_btn)
+        layout.addWidget(your_Rate_btn)
+        layout.addWidget(discover_events_btn)
+        layout.addWidget(technical_support_btn)
+        
         layout.addStretch()
 
         self.addContent(layout)
 
-        # Connect buttons to methods for opening other screens
-        # pick_therapist_btn.clicked.connect(self.open_pick_therapist)
-        # your_progress_btn.clicked.connect(self.open_progress)
+    def show_upcoming_events(self):
+        QMessageBox.information(self, "Upcoming Events", "Here are the upcoming events...")
 
-    # def open_pick_therapist(self):
-    #     from screen_therapist import ScreenTherapist
-    #     self.screen_therapist = ScreenTherapist()
-    #     self.screen_therapist.show()
-    #     self.close()
-
-    # def open_progress(self):
-    #     from screen_progress import ScreenProgress
-    #     self.screen_progress = ScreenProgress()
-    #     self.screen_progress.show()
-    #     self.close()
+    def show_technical_support(self):
+        QMessageBox.information(self, "Technical Support", "For technical support, please contact support@example.com")
 
 if __name__ == "__main__":
     app = QApplication([])

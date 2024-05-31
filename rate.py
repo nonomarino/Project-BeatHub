@@ -1,6 +1,34 @@
 from PyQt5.QtWidgets import QApplication, QMainWindow, QVBoxLayout, QWidget, QPushButton, QLabel, QRadioButton, QTextEdit
 from PyQt5.QtCore import Qt
+from PyQt5.QtGui import QFont, QIcon, QPixmap
+from backroundWin import BaseWindow  # Import the BaseWindow class from the second code
 
+class ScreenMain(BaseWindow):  # Use BaseWindow as the base class
+    def __init__(self):
+        super().__init__()
+        self.setStyleSheet("background-color: #363636;")
+        self.add_content_to_main_layout()
+
+    def add_content_to_main_layout(self):
+        layout = QVBoxLayout()
+        layout.setAlignment(Qt.AlignCenter)
+
+        subtitle = QLabel("Welcome, (Username)")
+        subtitle.setAlignment(Qt.AlignCenter)
+        subtitle.setFont(QFont('Arial', 18))
+        subtitle.setStyleSheet("color: white;")
+        layout.addWidget(subtitle, alignment=Qt.AlignTop | Qt.AlignCenter)
+
+class ReservationWindow(BaseWindow):
+    def __init__(self):
+        super().__init__()
+        self.setStyleSheet("background-color: #363636;")
+        self.add_content_to_main_layout()
+
+    def add_content_to_main_layout(self):
+        layout = QVBoxLayout()
+        layout.setAlignment(Qt.AlignTop)  # Align content to the top
+         
 class Rate(QMainWindow):
     def __init__(self):
         super().__init__()

@@ -24,7 +24,7 @@ class ReservationWindow(BaseWindow):
                 color: black; 
                 padding: 10px; 
                 border-radius: 10px; 
-                margin: 20px;
+                margin: 20px; 
                 border: 2px solid #FFFFFF;
             }
         """)
