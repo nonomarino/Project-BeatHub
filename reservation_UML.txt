@@ -1,0 +1,7 @@
+@startuml
+class ReservationWindow {
+    add_content_to_main_layout()
+        __init__()
+}
+BaseWindow <|-- ReservationWindow
+@enduml

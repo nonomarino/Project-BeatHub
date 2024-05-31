@@ -1,65 +1,139 @@
-from PyQt5.QtWidgets import QApplication, QMainWindow, QVBoxLayout, QWidget, QPushButton, QLabel, QRadioButton, QTextEdit
-from PyQt5.QtCore import Qt
-from PyQt5.QtGui import QFont, QIcon, QPixmap
-from backroundWin import BaseWindow  # Import the BaseWindow class from the second code
+from PyQt5.QtWidgets import (QVBoxLayout, QLabel, QPushButton, QApplication, QWidget, QTextEdit, QHBoxLayout, QMessageBox, QSpacerItem, QSizePolicy, QListWidget, QListWidgetItem)
+from PyQt5.QtCore import Qt, QSize, QDateTime
+from PyQt5.QtGui import QFont, QIcon
+from backroundWin import BaseWindow  # Import the BaseWindow class
 
-class ScreenMain(BaseWindow):  # Use BaseWindow as the base class
+class EventListWindow(BaseWindow):  # Extend BaseWindow
     def __init__(self):
         super().__init__()
+        self.setWindowTitle("Event List")
+        self.setStyleSheet("background-color: #363636;")
+        self.add_content_to_main_layout()
+
+    def add_content_to_main_layout(self):
+        layout = QVBoxLayout()
+        layout.setAlignment(Qt.AlignTop)
+        
+        subtitle = QLabel("Events Attended")
+        subtitle.setAlignment(Qt.AlignCenter)
+        subtitle.setFont(QFont('Arial', 18))
+        subtitle.setStyleSheet("color: white;")
+        layout.addWidget(subtitle, alignment=Qt.AlignTop | Qt.AlignCenter)
+
+        # Example events
+        events = [
+            {"name": "Event 1", "datetime": QDateTime.currentDateTime().toString()},
+            {"name": "Event 2", "datetime": QDateTime.currentDateTime().addDays(-1).toString()},
+            {"name": "Event 3", "datetime": QDateTime.currentDateTime().addDays(-2).toString()},
+            {"name": "Event 4", "datetime": QDateTime.currentDateTime().addDays(-3).toString()}
+        ]
+        
+        for event in events:
+            event_button = QPushButton(f"{event['name']}\n{event['datetime']}")
+            event_button.setFont(QFont('Arial', 14))
+            event_button.setStyleSheet("""
+                QPushButton {
+                    background-color: #5C6BC0;
+                    color: white;
+                    padding: 20px;
+                    border-radius: 20px;
+                    text-align: center;
+                }
+                QPushButton:hover {
+                    background-color: #7986CB;
+                }
+                QPushButton:pressed {
+                    background-color: #3F51B5;
+                }
+            """)
+            event_button.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
+            event_button.clicked.connect(lambda _, e=event: self.open_rating_window(e))
+            layout.addWidget(event_button)
+        
+        layout.addStretch()
+        
+        self.addContent(layout)
+    
+    def open_rating_window(self, event):
+        self.rating_window = RatingWindow(event)
+        self.rating_window.show()
+        self.close()
+
+
+class RatingWindow(BaseWindow):  # Extend BaseWindow
+    def __init__(self, event):
+        super().__init__()
+        self.event = event
+        self.setWindowTitle("Rate Event")
         self.setStyleSheet("background-color: #363636;")
         self.add_content_to_main_layout()
 
     def add_content_to_main_layout(self):
         layout = QVBoxLayout()
         layout.setAlignment(Qt.AlignCenter)
-
-        subtitle = QLabel("Welcome, (Username)")
+        
+        subtitle = QLabel(self.event['name'])
         subtitle.setAlignment(Qt.AlignCenter)
         subtitle.setFont(QFont('Arial', 18))
         subtitle.setStyleSheet("color: white;")
         layout.addWidget(subtitle, alignment=Qt.AlignTop | Qt.AlignCenter)
 
-class ReservationWindow(BaseWindow):
-    def __init__(self):
-        super().__init__()
-        self.setStyleSheet("background-color: #363636;")
-        self.add_content_to_main_layout()
+        stars_layout = QHBoxLayout()
+        self.stars = []
+        for i in range(5):
+            star_button = QPushButton()
+            star_button.setIcon(QIcon("images/Screenshot 2024-05-31 231749.png"))
+            star_button.setIconSize(QSize(24, 24))
+            star_button.setStyleSheet("background-color: transparent; border: none;")
+            star_button.setProperty('rating', i + 1)
+            star_button.clicked.connect(lambda _, s=star_button: self.rate_event(s))
+            self.stars.append(star_button)
+            stars_layout.addWidget(star_button)
+        layout.addLayout(stars_layout)
 
-    def add_content_to_main_layout(self):
-        layout = QVBoxLayout()
-        layout.setAlignment(Qt.AlignTop)  # Align content to the top
-         
-class Rate(QMainWindow):
-    def __init__(self):
-        super().__init__()
-        self.setWindowTitle('BeatHub')
-        self.setGeometry(100, 100, 350, 600)  # Set the geometry of the main window
+        self.feedback_area = QTextEdit()
+        self.feedback_area.setPlaceholderText("Add comments (optional)")
+        self.feedback_area.setStyleSheet("color: white; background-color: #4a4a4a; border: 1px solid #5C6BC0;")
+        layout.addWidget(self.feedback_area)
+        
+        rate_button = QPushButton("Submit Rating")
+        rate_button.setStyleSheet("""
+            QPushButton {
+                background-color: #5C6BC0;
+                color: white;
+                font-size: 18px;
+                padding: 10px;
+                border-radius: 20px;
+            }
+            QPushButton:hover {
+                background-color: #7986CB;
+            }
+            QPushButton:pressed {
+                background-color: #3F51B5;
+            }
+        """)
+        rate_button.clicked.connect(self.submit_rating)
+        
+        layout.addWidget(rate_button)
+        layout.addStretch()
+        
+        self.addContent(layout)
+    
+    def rate_event(self, star_button):
+        rating = star_button.property('rating')
+        for i, btn in enumerate(self.stars):
+            if i < rating:
+                btn.setIcon(QIcon("images/Screenshot 2024-05-31 232041.png"))
+            else:
+                btn.setIcon(QIcon("images/Screenshot 2024-05-31 231749.png"))
+        self.rating = rating
 
-        self.central_widget = QWidget()
-        self.setCentralWidget(self.central_widget)
-        self.layout = QVBoxLayout()
+    def submit_rating(self):
+        feedback = self.feedback_area.toPlainText()
+        QMessageBox.information(self, "Rating Submitted", f"Event: {self.event['name']}\nRating: {self.rating} stars\nFeedback: {feedback}")
 
-        self.label_title = QLabel("BeatHub", alignment=Qt.AlignCenter)
-        self.layout.addWidget(self.label_title)
-
-        self.rate_button = QPushButton('Rate event')
-        self.layout.addWidget(self.rate_button)
-
-        self.events_label = QLabel('Local events')
-        self.layout.addWidget(self.events_label)
-
-        self.events = ['Event 1', 'Event 2', 'Event 3', 'Event 4']
-        for event in self.events:
-            radio_button = QRadioButton(event)
-            self.layout.addWidget(radio_button)
-
-        self.feedback_area = QTextEdit('Your feedback')
-        self.layout.addWidget(self.feedback_area)
-
-        self.central_widget.setLayout(self.layout)
-
-if __name__ == '__main__':
+if __name__ == "__main__":
     app = QApplication([])
-    window = Rate()
+    window = EventListWindow()
     window.show()
     app.exec_()
