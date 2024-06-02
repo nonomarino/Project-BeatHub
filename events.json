@@ -1,0 +1,83 @@
+[
+  {
+    "title": "Coldplay",
+    "genres": ["Rock"],
+    "location": "Athens Olympic Stadium",
+    "date": "2024-06-08",
+    "artists": ["Coldplay"],
+    "background_photo": "images/14223106.webp"
+  },
+  {
+    "title": "Hip Hop Vibes",
+    "genres": ["Hip Hop"],
+    "location": "Urban Plaza",
+    "date": "2024-07-22",
+    "artists": ["Kendrick Lamar", "Drake"],
+    "background_photo": "images/download (2).jfif"
+  },
+  {
+    "title": "Indie Night Out",
+    "genres": ["Indie"],
+    "location": "Downtown Club",
+    "date": "2024-06-15",
+    "artists": ["Arctic Monkeys", "The Strokes"],
+    "background_photo": "images/maxresdefault.jpg"
+  },
+  {
+    "title": "Alternative Universe",
+    "genres": ["Rock"],
+    "location": "Urban Club",
+    "date": "2024-07-11",
+    "artists": ["Radiohead", "Muse"],
+    "background_photo": "images/download.jfif"
+  },
+
+  
+
+  {
+    "title": "Indie Jam",
+    "genres": ["Indie"],
+    "location": "Indie Lounge",
+    "date": "2024-07-05",
+    "artists": ["Florence + The Machine", "The 1975"],
+    "background_photo": "images/florence-dance-fever.jpg"
+  },
+  {
+    "title": "Hip Hop Nights",
+    "genres": ["Hip Hop"],
+    "location": "Downtown Club",
+    "date": "2024-06-30",
+    "artists": ["Cardi B", "Nicki Minaj"],
+    "background_photo": "images/images.jfif"
+  },
+  {
+    "title": "Alternative Fest",
+    "genres": ["Rock"],
+    "location": "Festival Grounds",
+    "date": "2024-07-18",
+    "artists": ["Foo Fighters", "Nirvana Tribute"],
+    "background_photo": "images/Foo-Fighters-Credit-Nigel-Crane-Redferns@2560x1625.jpg"
+  },
+  {
+    "title": "Indie Rock Fest",
+    "genres": ["Indie"],
+    "location": "Green Park",
+    "date": "2024-08-12",
+    "artists": ["Vampire Weekend", "Tame Impala"],
+    "background_photo": "images/download (1).jfif"
+  },
+  {
+    "title": "Hip Hop Block Party",
+    "genres": ["Hip Hop"],
+    "location": "City Square",
+    "date": "2024-07-22",
+    "artists": ["Travis Scott", "Post Malone"],
+    "background_photo": "images/images (1).jfif"
+  }
+ 
+
+]
+  
+
+
+
