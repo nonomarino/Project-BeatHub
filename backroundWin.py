@@ -1,5 +1,5 @@
 from PyQt5.QtCore import Qt
-from PyQt5.QtWidgets import (QApplication, QWidget, QLabel, QVBoxLayout,     QMainWindow, QSizePolicy)
+from PyQt5.QtWidgets import (QApplication, QWidget, QLabel, QVBoxLayout, QMainWindow, QSizePolicy)
 from PyQt5.QtGui import QIcon, QPixmap
 
 class BaseWindow(QMainWindow):
