@@ -22,14 +22,25 @@ class DiscoverWindow(BaseWindow):
         title_label.setStyleSheet("color: #FFD700;")
         layout.addWidget(title_label, alignment=Qt.AlignCenter)
 
+        # ComboBox and search button layout
         filter_layout = QHBoxLayout()
         filter_layout.setAlignment(Qt.AlignCenter)
+
+        # Label for filter selection
+        filter_label = QLabel("Select a filter:")
+        filter_label.setFont(QFont('Arial', 14, QFont.Bold))
+        filter_label.setStyleSheet("color: white; margin-right: 10px;")  
+        filter_layout.addWidget(filter_label, alignment=Qt.AlignLeft)
+
 
         # ComboBox for genre selection
         self.genre_combo = QComboBox()
         self.genre_combo.setFont(QFont('Arial', 14))
         self.genre_combo.setStyleSheet("color: black; background-color: #f5f5dc; padding: 10px; border-radius: 5px;")
         filter_layout.addWidget(self.genre_combo)
+
+        
+        filter_layout.addSpacing(10)
 
         # Search button
         search_button = QPushButton("Search")
@@ -51,6 +62,8 @@ class DiscoverWindow(BaseWindow):
         search_button.clicked.connect(self.search_events)
         filter_layout.addWidget(search_button)
 
+       
+        layout.addSpacing(20)
         layout.addLayout(filter_layout)
 
         # Scroll area to display events
