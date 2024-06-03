@@ -3,6 +3,7 @@ from PyQt5.QtCore import Qt
 from PyQt5.QtGui import QFont
 from backroundWin import BaseWindow  # Import the BaseWindow class from the second code
 from rate import EventListWindow  # Import the EventListWindow class
+from discover import DiscoverWindow # Import the DiscoverWindow class
 
 class ScreenMain(BaseWindow):  # Extend BaseWindow
     def __init__(self, username="User"):
@@ -77,7 +78,7 @@ class ScreenMain(BaseWindow):  # Extend BaseWindow
             }
         """)
         discover_events_btn.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
-        discover_events_btn.clicked.connect(self.show_upcoming_events)
+        discover_events_btn.clicked.connect(self.open_discover_window)
 
         technical_support_btn = QPushButton("Technical Support")
         technical_support_btn.setStyleSheet("""
@@ -123,7 +124,10 @@ class ScreenMain(BaseWindow):  # Extend BaseWindow
         self.event_list_window.show()
         self.close()
 
-
+    def open_discover_window(self):
+        self.discover_window = DiscoverWindow()
+        self.discover_window.show()
+        self.close()  
 
 if __name__ == "__main__":
     app = QApplication([])
